@@ -22,20 +22,24 @@ lines.forEach { line in
 }
 
 func isSafe(_ report: [Int], skip: Int = -1) -> Bool {
-    let isIncrement = report[0] < report[1]
+	var report_copy = report
+	if skip >= 0 {
+		report_copy.remove(at: skip)
+	}
 
-    for i in 0..<report.count {
-        if i == skip { continue }
+    let isIncrement = report_copy[0] < report_copy[1]
 
-        let diff = abs(report[i] - report[i > 0 ? i - 1 : i + 1])
+    for i in 0..<report_copy.count {
+
+        let diff = abs(report_copy[i] - report_copy[i > 0 ? i - 1 : i + 1])
 
         if diff > 3 
             || diff < 1 
-            || (i > 0 && ((isIncrement && report[i] < report[i - 1]) 
-                || (!isIncrement && report[i] > report[i - 1]))) {
+            || (i > 0 && ((isIncrement && report_copy[i] < report_copy[i - 1]) 
+                || (!isIncrement && report_copy[i] > report_copy[i - 1]))) {
             break
         }
-        if i == report.count - 1 {
+        if i == report_copy.count - 1 {
             return true
         }
     }
