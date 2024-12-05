@@ -4,8 +4,6 @@ var result = 0
 
 let fileContent = try! String(contentsOfFile: "./input3", encoding: .utf8)
 
-let test = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
-
 var todont = fileContent.components(separatedBy: "don't()")
 
 result += countCorrect(todont[0])
@@ -20,7 +18,7 @@ todont.forEach { dont in
     }
 }
 
-print(result)
+print("First result is: \(countCorrect(fileContent)), second one is: \(result)")
 
 func countCorrect(_ toCheck: String) -> Int {
     var res = 0
